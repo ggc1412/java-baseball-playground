@@ -5,26 +5,30 @@ import java.util.Scanner;
 
 public class Main {
 
+    int operator(String opt, int a, int b) {
+        int value = 0;
+        switch (opt) {
+            case "+":
+                value = a + b;
+                break;
+            case "-":
+                value = a - b;
+                break;
+            case "*":
+                value = a * b;
+                break;
+            case "/":
+                value = a / b;
+        }
+        return value;
+    }
+
     int stringCalculate(String[] values){
         int a = Integer.parseInt(values[0]);
 
         for (int i = 1; i * 2 - 1 < values.length; i++) {
-            switch (values[i * 2 - 1]) {
-                case "+":
-                    a = a + Integer.parseInt(values[i * 2]);
-                    break;
-                case "-":
-                    a = a - Integer.parseInt(values[i * 2]);
-                    break;
-                case "*":
-                    a = a * Integer.parseInt(values[i * 2]);
-                    break;
-                case "/":
-                    a = a / Integer.parseInt(values[i * 2]);
-                    break;
-            }
+            a = operator(values[i * 2 - 1], a, Integer.parseInt(values[i * 2]));
         }
-
         return a;
     }
 
