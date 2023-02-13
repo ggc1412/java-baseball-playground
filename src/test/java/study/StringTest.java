@@ -7,14 +7,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.lang.invoke.MethodHandles.throwException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StringTest {
     @Test
