@@ -1,10 +1,30 @@
 package numberBaseball;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
-    void startNewGame(){
+    List<Integer> comNumber = new ArrayList<>();
+
+    int getRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(9) + 1;
+    }
+
+    void addNumber(){
+        int ranNum = getRandomNumber();
+        if (!comNumber.contains(ranNum)) {
+            comNumber.add(ranNum);
+        }
+    }
+
+    void makeNewComNumber() {
+        while (comNumber.size() < 3) {
+            addNumber();
+        }
+    }
+
+    void endGameView() {
         System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임종료");
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     }
@@ -13,11 +33,17 @@ public class Main {
         String resultStr = "";
         return resultStr;
     }
-    void resultView(int result){
 
+    void resultView(int result) {
         if (result == 0) {
             System.out.println();
         }
+    }
+
+    void handleResult(int result){
+
+
+        resultView(result);
     }
 
     int compareToComputer(int input) {
@@ -26,18 +52,23 @@ public class Main {
         return result;
     }
 
-    int inputNumber() {
+    int getInputNumber() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("숫자를 입력해주세요 : ");
         return sc.nextInt();
+    }
+
+    void inputNumberView() {
+        System.out.print("숫자를 입력해주세요 : ");
+    }
+
+    void startNewGame(){
+        makeNewComNumber();
+        inputNumberView();
+        handleResult(compareToComputer(getInputNumber()));
     }
 
     public static void main(String[] args) {
         Main main = new Main();
-        int input = 0;
-        while (input != 2) {
-            input = main.inputNumber();
-            main.resultView(main.compareToComputer(input));
-        }
+        main.startNewGame();
     }
 }
