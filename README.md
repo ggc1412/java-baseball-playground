@@ -32,3 +32,5 @@ ex) git checkout -b apply-feedback
 - 입력 숫자와 비교하는 기능
 - 결과 출력 기능
 - 게임 새로 시작 혹은 종료 처리 기능
+- 단위 테스트 추가
+- else 절 삭제 리펙토링
