@@ -29,24 +29,13 @@ public class Main {
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     }
 
-    String stringResult(int result) {
-        String resultStr = "";
-        return resultStr;
-    }
-
-    void resultView(int result) {
-        if (result == 0) {
-            System.out.println();
-        }
-    }
-
     String getResultStr(int result) {
         String resultStr = "";
         if (result == 0) {
             return "낫싱";
         }
         if (result / 100 != 0) {
-            resultStr += result / 100 + "볼";
+            resultStr += result / 100 + "볼 ";
             result = result % 100;
         }
         if (result / 10 != 0) {
@@ -60,9 +49,29 @@ public class Main {
         System.out.println(resultStr);
     }
 
+    boolean checkEndGame(int result) {
+        return result % 100 / 10 == 3;
+    }
+
+    void handleEndGame(int input) {
+        if (input == 1) {
+            startNewGame();
+        } else if (input == 2) {
+            return;
+        } else {
+            endGameView();
+            handleEndGame(getInputNumber());
+        }
+    }
+
     void handleResult(int result){
         resultView(getResultStr(result));
-        resultView(result);
+        if (checkEndGame(result)) {
+            endGameView();
+            handleEndGame(getInputNumber());
+        } else {
+            startGame();
+        }
     }
 
     int compareToComNumber(int comNum, int inputNum) {
@@ -96,10 +105,14 @@ public class Main {
         System.out.print("숫자를 입력해주세요 : ");
     }
 
-    void startNewGame(){
-        makeNewComNumber();
+    void startGame() {
         inputNumberView();
         handleResult(checkInput(getInputNumber()));
+    }
+
+    void startNewGame(){
+        makeNewComNumber();
+        startGame();
     }
 
     public static void main(String[] args) {
