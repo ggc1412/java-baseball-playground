@@ -10,7 +10,7 @@ class MainTest {
     @Test
     void makeNewComNumber() {
         main.makeNewComNumber();
-        System.out.println(main.comNumber);
+        System.out.println(main.comNumberList);
     }
 
     @Test

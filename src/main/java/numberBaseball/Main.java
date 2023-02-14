@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-    List<Integer> comNumber = new ArrayList<>();
+    List<Integer> comNumberList = new ArrayList<>();
 
     int getRandomNumber() {
         Random random = new Random();
@@ -13,13 +13,13 @@ public class Main {
 
     void addNumber(){
         int ranNum = getRandomNumber();
-        if (!comNumber.contains(ranNum)) {
-            comNumber.add(ranNum);
+        if (!comNumberList.contains(ranNum)) {
+            comNumberList.add(ranNum);
         }
     }
 
     void makeNewComNumber() {
-        while (comNumber.size() < 3) {
+        while (comNumberList.size() < 3) {
             addNumber();
         }
     }
@@ -40,15 +40,50 @@ public class Main {
         }
     }
 
+    String getResultStr(int result) {
+        String resultStr = "";
+        if (result == 0) {
+            return "낫싱";
+        }
+        if (result / 100 != 0) {
+            resultStr += result / 100 + "볼";
+            result = result % 100;
+        }
+        if (result / 10 != 0) {
+            resultStr += result / 10 + "스트라이크";
+        }
+
+        return resultStr;
+    }
+
+    void resultView(String resultStr) {
+        System.out.println(resultStr);
+    }
+
     void handleResult(int result){
-
-
+        resultView(getResultStr(result));
         resultView(result);
     }
 
-    int compareToComputer(int input) {
+    int compareToComNumber(int comNum, int inputNum) {
+        if (comNum == inputNum) {
+            return 10;
+        }
+        if (comNumberList.contains(inputNum)) {
+            return 100;
+        }
+        return 0;
+    }
+
+    int checkInput(int input) {
         int result = 0;
 
+        for (int i = 2; i >= 0; i--) {
+            int tmp = input % 10;
+            input = input / 10;
+
+            result += compareToComNumber(comNumberList.get(i), tmp);
+        }
         return result;
     }
 
@@ -64,7 +99,7 @@ public class Main {
     void startNewGame(){
         makeNewComNumber();
         inputNumberView();
-        handleResult(compareToComputer(getInputNumber()));
+        handleResult(checkInput(getInputNumber()));
     }
 
     public static void main(String[] args) {
